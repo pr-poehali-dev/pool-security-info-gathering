@@ -83,15 +83,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-bg">
-        <div className="absolute inset-0 bg-black/20"></div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: 'url(https://cdn.poehali.dev/projects/ead82427-97f2-45f0-9996-21bed6f026e2/files/c95ced54-c0b3-4972-997b-790dd63e9570.jpg)'}}></div>
+        <div className="absolute inset-0 bg-black/40"></div>
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="max-w-4xl mx-auto text-center text-white animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Безопасность вашего бассейна под контролем
             </h1>
             <p className="text-xl md:text-2xl mb-8 opacity-90">
-              Передовые системы защиты для спокойствия вашей семьи
+              Передовые системы защиты для посетителей бассейнов и водоемов
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -104,7 +105,7 @@ const Index = () => {
                 }
               >
                 <Icon name="Phone" className="mr-2" size={20} />
-                Получить консультацию
+                Оставить заявку
               </Button>
               <Button
                 size="lg"
