@@ -50,7 +50,6 @@ const Index = () => {
   const systems = [
     {
       name: "Aqua Guard Basic",
-      price: "от 59 000 ₽",
       features: [
         "Датчики движения в воде",
         "SMS-уведомления",
@@ -61,7 +60,6 @@ const Index = () => {
     },
     {
       name: "Aqua Guard Pro",
-      price: "от 129 000 ₽",
       features: [
         "Подводные камеры HD",
         "Мобильное приложение",
@@ -73,7 +71,6 @@ const Index = () => {
     },
     {
       name: "Aqua Guard Elite",
-      price: "от 249 000 ₽",
       features: [
         "AI-распознавание объектов",
         "Автоматическое покрытие",
@@ -200,10 +197,7 @@ const Index = () => {
                       className="w-full h-full"
                     ></iframe>
                   </div>
-                  <h3 className="text-2xl font-bold mb-2">{system.name}</h3>
-                  <p className="text-3xl font-bold gradient-text mb-6">
-                    {system.price}
-                  </p>
+                  <h3 className="text-2xl font-bold mb-6">{system.name}</h3>
                   <ul className="space-y-3 mb-6">
                     {system.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
