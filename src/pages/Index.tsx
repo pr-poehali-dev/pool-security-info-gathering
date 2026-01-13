@@ -18,24 +18,51 @@ const Index = () => {
     deliveryTime: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Заявка отправлена!",
-      description: "Мы свяжемся с вами в ближайшее время.",
-    });
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      poolSize: "",
-      hasProject: "",
-      braceletsCount: "",
-      deliveryTime: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/d98554c5-b71d-479f-b5a2-09263c6db0aa', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast({
+          title: "Заявка отправлена!",
+          description: "Мы получили вашу заявку и свяжемся с вами в ближайшее время.",
+        });
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          poolSize: "",
+          hasProject: "",
+          braceletsCount: "",
+          deliveryTime: "",
+          message: "",
+        });
+      } else {
+        throw new Error(result.error || 'Ошибка отправки');
+      }
+    } catch (error) {
+      toast({
+        title: "Ошибка отправки",
+        description: "Не удалось отправить заявку. Попробуйте позже или позвоните нам.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const advantages = [
@@ -726,10 +753,20 @@ const Index = () => {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full bg-accent hover:bg-accent/90 text-white text-lg py-6 rounded-xl shadow-xl hover:scale-[1.02] transition-all"
+                    disabled={isSubmitting}
+                    className="w-full bg-accent hover:bg-accent/90 text-white text-lg py-6 rounded-xl shadow-xl hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Icon name="Send" className="mr-2" size={20} />
-                    Отправить заявку
+                    {isSubmitting ? (
+                      <>
+                        <Icon name="Loader2" className="mr-2 animate-spin" size={20} />
+                        Отправка...
+                      </>
+                    ) : (
+                      <>
+                        <Icon name="Send" className="mr-2" size={20} />
+                        Отправить заявку
+                      </>
+                    )}
                   </Button>
 
                   <p className="text-sm text-gray-500 text-center">
